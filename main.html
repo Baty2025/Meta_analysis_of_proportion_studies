@@ -1,0 +1,1891 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mohammad Shah Jalal, Université de Montréal">
+<meta name="dcterms.date" content="2026-05-26">
+
+<title>Meta-analysis of proportion studies</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="main_files/libs/clipboard/clipboard.min.js"></script>
+<script src="main_files/libs/quarto-html/quarto.js"></script>
+<script src="main_files/libs/quarto-html/popper.min.js"></script>
+<script src="main_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="main_files/libs/quarto-html/anchor.min.js"></script>
+<link href="main_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="main_files/libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="main_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="main_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="main_files/libs/bootstrap/bootstrap-0b3b9638000aa634054a1a0e4b24ad6b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body>
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#what-is-a-meta-analysis" id="toc-what-is-a-meta-analysis" class="nav-link active" data-scroll-target="#what-is-a-meta-analysis"><strong>What is a meta-analysis?</strong></a></li>
+  <li><a href="#what-is-a-proportion-study" id="toc-what-is-a-proportion-study" class="nav-link" data-scroll-target="#what-is-a-proportion-study"><strong>What is a proportion study?</strong></a></li>
+  <li><a href="#why-the-meta-analysis-of-proportion-is-different" id="toc-why-the-meta-analysis-of-proportion-is-different" class="nav-link" data-scroll-target="#why-the-meta-analysis-of-proportion-is-different"><strong>Why the meta-analysis of proportion is different?</strong></a>
+  <ul class="collapse">
+  <li><a href="#proportions-are-bounded-between-0-and-1" id="toc-proportions-are-bounded-between-0-and-1" class="nav-link" data-scroll-target="#proportions-are-bounded-between-0-and-1"><strong>1. Proportions are bounded between 0 and 1</strong></a></li>
+  <li><a href="#variances-are-not-constant" id="toc-variances-are-not-constant" class="nav-link" data-scroll-target="#variances-are-not-constant"><strong>2. Variances are not constant</strong></a></li>
+  <li><a href="#zero-event-studies-can-happen" id="toc-zero-event-studies-can-happen" class="nav-link" data-scroll-target="#zero-event-studies-can-happen"><strong>3. Zero-event studies can happen</strong></a></li>
+  <li><a href="#heterogeneity-is-usually-very-high" id="toc-heterogeneity-is-usually-very-high" class="nav-link" data-scroll-target="#heterogeneity-is-usually-very-high"><strong>4. Heterogeneity is usually very high</strong></a></li>
+  </ul></li>
+  <li><a href="#how-can-we-normalize-the-data" id="toc-how-can-we-normalize-the-data" class="nav-link" data-scroll-target="#how-can-we-normalize-the-data"><strong>How can we normalize the data?</strong></a>
+  <ul class="collapse">
+  <li><a href="#logit-transformation" id="toc-logit-transformation" class="nav-link" data-scroll-target="#logit-transformation"><strong>1. Logit transformation</strong></a></li>
+  <li><a href="#log-transformation" id="toc-log-transformation" class="nav-link" data-scroll-target="#log-transformation"><strong>2. Log transformation</strong></a></li>
+  <li><a href="#arcsine-transformation" id="toc-arcsine-transformation" class="nav-link" data-scroll-target="#arcsine-transformation"><strong>3. Arcsine transformation</strong></a></li>
+  <li><a href="#freemantukey-double-arcsine-transformation" id="toc-freemantukey-double-arcsine-transformation" class="nav-link" data-scroll-target="#freemantukey-double-arcsine-transformation"><strong>4. Freeman–Tukey double arcsine transformation</strong></a></li>
+  </ul></li>
+  <li><a href="#conducting-meta-analysis" id="toc-conducting-meta-analysis" class="nav-link" data-scroll-target="#conducting-meta-analysis"><strong>Conducting meta-analysis</strong></a>
+  <ul class="collapse">
+  <li><a href="#choosing-the-model" id="toc-choosing-the-model" class="nav-link" data-scroll-target="#choosing-the-model"><strong>1. Choosing the model</strong></a></li>
+  <li><a href="#estimating-summary-estimates" id="toc-estimating-summary-estimates" class="nav-link" data-scroll-target="#estimating-summary-estimates"><strong>2. Estimating summary estimates</strong></a>
+  <ul class="collapse">
+  <li><a href="#a.-classical-inverse-variance-meta-analysis-two-step-method" id="toc-a.-classical-inverse-variance-meta-analysis-two-step-method" class="nav-link" data-scroll-target="#a.-classical-inverse-variance-meta-analysis-two-step-method"><strong>A. Classical inverse variance meta-analysis (two-step method)</strong></a></li>
+  <li><a href="#b.-meta-analysis-based-on-generalized-linear-mixed-model-glmm" id="toc-b.-meta-analysis-based-on-generalized-linear-mixed-model-glmm" class="nav-link" data-scroll-target="#b.-meta-analysis-based-on-generalized-linear-mixed-model-glmm"><strong>B. Meta-analysis based on generalized linear mixed model (GLMM)</strong></a></li>
+  </ul></li>
+  <li><a href="#presentation-of-results-forest-plot" id="toc-presentation-of-results-forest-plot" class="nav-link" data-scroll-target="#presentation-of-results-forest-plot"><strong>3. Presentation of results (forest plot)</strong></a></li>
+  <li><a href="#estimation-of-the-heterogeneity" id="toc-estimation-of-the-heterogeneity" class="nav-link" data-scroll-target="#estimation-of-the-heterogeneity"><strong>4. Estimation of the heterogeneity</strong></a></li>
+  <li><a href="#exploration-of-sources-of-heterogeneity" id="toc-exploration-of-sources-of-heterogeneity" class="nav-link" data-scroll-target="#exploration-of-sources-of-heterogeneity"><strong>5. Exploration of sources of heterogeneity</strong></a></li>
+  <li><a href="#identifying-the-influential-studies" id="toc-identifying-the-influential-studies" class="nav-link" data-scroll-target="#identifying-the-influential-studies"><strong>6. Identifying the influential studies</strong></a>
+  <ul class="collapse">
+  <li><a href="#a.-identifying-outlying-and-influential-studies-with-diagnostic-tools-baujat-plot" id="toc-a.-identifying-outlying-and-influential-studies-with-diagnostic-tools-baujat-plot" class="nav-link" data-scroll-target="#a.-identifying-outlying-and-influential-studies-with-diagnostic-tools-baujat-plot"><strong>A. Identifying outlying and influential studies with diagnostic tools (Baujat plot)</strong></a></li>
+  <li><a href="#b.-identifying-influential-study-by-externally-studentized-residuals-esr" id="toc-b.-identifying-influential-study-by-externally-studentized-residuals-esr" class="nav-link" data-scroll-target="#b.-identifying-influential-study-by-externally-studentized-residuals-esr"><strong>B. Identifying influential study by Externally studentized residuals (ESR)</strong></a></li>
+  <li><a href="#c.-identifying-influential-study-by-leave-one-out-diagnostic-tests" id="toc-c.-identifying-influential-study-by-leave-one-out-diagnostic-tests" class="nav-link" data-scroll-target="#c.-identifying-influential-study-by-leave-one-out-diagnostic-tests"><strong>C. Identifying influential study by leave-one-out diagnostic tests</strong></a></li>
+  </ul></li>
+  <li><a href="#searching-for-publication-bias-optional" id="toc-searching-for-publication-bias-optional" class="nav-link" data-scroll-target="#searching-for-publication-bias-optional"><strong>7. Searching for publication bias (Optional)</strong></a>
+  <ul class="collapse">
+  <li><a href="#a.-funnel-plot" id="toc-a.-funnel-plot" class="nav-link" data-scroll-target="#a.-funnel-plot"><strong>A. Funnel plot</strong></a></li>
+  <li><a href="#b.-eggers-test" id="toc-b.-eggers-test" class="nav-link" data-scroll-target="#b.-eggers-test"><strong>B. Egger’s test</strong></a></li>
+  <li><a href="#c.-peters-test" id="toc-c.-peters-test" class="nav-link" data-scroll-target="#c.-peters-test"><strong>C. Peters’ test</strong></a></li>
+  <li><a href="#d.-trim-and-fill" id="toc-d.-trim-and-fill" class="nav-link" data-scroll-target="#d.-trim-and-fill"><strong>D. Trim-and-fill</strong></a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#what-are-the-major-limitations-of-two-step-method" id="toc-what-are-the-major-limitations-of-two-step-method" class="nav-link" data-scroll-target="#what-are-the-major-limitations-of-two-step-method"><strong>What are the major limitations of two step method?</strong></a></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Meta-analysis of proportion studies</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p><strong>Mohammad Shah Jalal, Université de Montréal</strong> </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 26, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">#if (!require("pacman")) install.packages("pacman")</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse,dplyr,binom, ggplot2, meta, metafor)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="what-is-a-meta-analysis" class="level1">
+<h1><strong>What is a meta-analysis?</strong></h1>
+<p>Meta-analysis can be defined as a statistical tool or a formal process of combining the results from multiple studies <span class="citation" data-cites="dohoo2014">[<a href="#ref-dohoo2014" role="doc-biblioref">1</a>]</span>. This allows the analysis of the results from various scientific studies, which are often not performed in the same place or using the same method <span class="citation" data-cites="hackenberger2020bayesian">[<a href="#ref-hackenberger2020bayesian" role="doc-biblioref">2</a>]</span>. Notably, both randomized clinical trials and observational studies are prone to a wide range of biases, and meta-analysis may lend spurious precision to questionable results. Therefore, the focus of meta-analysis of observational studies should be an evaluation of heterogeneity <span class="citation" data-cites="dohoo2014">[<a href="#ref-dohoo2014" role="doc-biblioref">1</a>]</span>.</p>
+</section>
+<section id="what-is-a-proportion-study" class="level1">
+<h1><strong>What is a proportion study?</strong></h1>
+<p>“Proportion study” is a study where the main outcome is a <strong>proportion (e.g., prevalence, incidence, percentage)</strong> of an event in a population.</p>
+<p>For example:</p>
+<ul>
+<li>25 people with epilepsy out of 100 participants</li>
+<li>18% prevalence of a disease in a community</li>
+</ul>
+</section>
+<section id="why-the-meta-analysis-of-proportion-is-different" class="level1">
+<h1><strong>Why the meta-analysis of proportion is different?</strong></h1>
+<p>Most meta-analyses aim to evaluate the effect of an intervention or exposure compared with a comparator. The result is a pooled estimate of effect size which includes risk ratio, odds ratio, incidence rate ratio, or mean difference <span class="citation" data-cites="barker2021conducting">[<a href="#ref-barker2021conducting" role="doc-biblioref">3</a>]</span>. In contrast, systematic reviews of studies estimating the proportion of a particular disease or health status typically involve a single study group, and the outcomes (e.g., prevalence, incidence, etc.) do not behave like conventional effect sizes. Some characteristics of the proportion are as follows:</p>
+<ul>
+<li>Proportions are bounded between 0 and 1, and do not behave like normal continuous data</li>
+<li>Variances are not constant</li>
+<li>Zero-event studies can happen. In that case, variance may become zero.</li>
+<li>Heterogeneity is usually very high</li>
+</ul>
+<p>Let examine the characteristics of the proportion. Here,</p>
+<ol type="1">
+<li>We will first create a data set with variables: <strong>Study</strong>, <strong>n</strong>: Study population, and <strong>y</strong>: Event.</li>
+<li>Then, we will calculate proportions and related variance.</li>
+<li>Then, we will examine the characteristics of proportion data.</li>
+</ol>
+<section id="proportions-are-bounded-between-0-and-1" class="level2">
+<h2 class="anchored" data-anchor-id="proportions-are-bounded-between-0-and-1"><strong>1. Proportions are bounded between 0 and 1</strong></h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Create data set</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Study =</span> <span class="fu">paste0</span>(<span class="st">"Study_"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">sample</span> (<span class="dv">1</span><span class="sc">:</span><span class="dv">1000</span>,<span class="dv">1000</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">mapply</span>(<span class="cf">function</span>(n) <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span>n,<span class="dv">1</span>), data<span class="sc">$</span>n)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate the propotion</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>p <span class="ot">&lt;-</span> data<span class="sc">$</span>y<span class="sc">/</span>data<span class="sc">$</span>n</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate variance (= p[1-p]/n)</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>var_p <span class="ot">&lt;-</span> (data<span class="sc">$</span>p<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>data<span class="sc">$</span>p))<span class="sc">/</span>data<span class="sc">$</span>n</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the proportion (Character 1)</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data,<span class="fu">aes</span>(Study,p))<span class="sc">+</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="variances-are-not-constant" class="level2">
+<h2 class="anchored" data-anchor-id="variances-are-not-constant"><strong>2. Variances are not constant</strong></h2>
+<p>This can be visualize as -</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the variance</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data,<span class="fu">aes</span>(Study,var_p))<span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">max</span>(data<span class="sc">$</span>var_p), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Or as <strong>Raw proportions</strong> vs <strong>variance</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the variance</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data,<span class="fu">aes</span>(p,var_p))<span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">max</span>(data<span class="sc">$</span>var_p), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="zero-event-studies-can-happen" class="level2">
+<h2 class="anchored" data-anchor-id="zero-event-studies-can-happen"><strong>3. Zero-event studies can happen</strong></h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>data_0 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(p <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>data_0 </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>      Study   n y p var_p
+1 Study_117  51 0 0     0
+2 Study_362 106 0 0     0
+3 Study_401  10 0 0     0
+4 Study_930   1 0 0     0</code></pre>
+</div>
+</div>
+<p>Look at the column of variance (var_p). They are zeros.</p>
+</section>
+<section id="heterogeneity-is-usually-very-high" class="level2">
+<h2 class="anchored" data-anchor-id="heterogeneity-is-usually-very-high"><strong>4. Heterogeneity is usually very high</strong></h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>mean_p <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>p, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Plot the proportion (Character 1)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data,<span class="fu">aes</span>(Study,p))<span class="sc">+</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">1</span>, <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> mean_p, <span class="at">slope =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s check the distributions of the proportions</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data,<span class="fu">aes</span>(p))<span class="sc">+</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">fill =</span> <span class="st">"skyblue"</span>)<span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="fu">after_stat</span>(density)),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fill =</span> <span class="st">"grey"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">"black"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins =</span> <span class="dv">30</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong><em>Are they look like normal?</em></strong></p>
+<p>But, when conducting a meta-analysis of proportions (pooling a single proportion across multiple studies), several foundational assumptions must be met to ensure the statistical validity and clinical relevance of your pooled estimate. Among several assumptions one most important assumption is the normality of the effect sizes (i.e., proportions).</p>
+</section>
+</section>
+<section id="how-can-we-normalize-the-data" class="level1">
+<h1><strong>How can we normalize the data?</strong></h1>
+<p>To stabilize variance and improve normality, proportions can be transformed to another scale. Some such transformations are -</p>
+<ul>
+<li>Logit transformation</li>
+<li>Log transformation</li>
+<li>Arcsine transformation</li>
+<li>Freeman–Tukey double arcsine transformation</li>
+</ul>
+<section id="logit-transformation" class="level2">
+<h2 class="anchored" data-anchor-id="logit-transformation"><strong>1. Logit transformation</strong></h2>
+<p>Let see what happen to our example proportions if we apply logit transformation to them.</p>
+<p><span class="math display">\[
+Logit (p) = log (\frac{p}{1-p})
+\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Perform logit transformation of the proportions and plot them</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(p<span class="sc">&gt;</span><span class="dv">0</span>,p<span class="sc">&lt;</span><span class="dv">1</span>) <span class="sc">%&gt;%</span> <span class="co"># Here, we are losing some data where data has 0% or 100% proportion</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lg_p =</span> <span class="fu">log</span>(p<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>p))) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x =</span> lg_p))<span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"skyblue"</span>)<span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>If we don’t want to loss the data from the studies with 0% and 100% event, we need continuity-correction.</strong></p>
+<p><em>“Continuity-corrected proportion usually refers to adjusting a sample proportion by adding a small factor (commonly 0.5) to the numerator and 1 to the denominator.”</em></p>
+<p>Let’s do that (we have to do the correction for all proportions)</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cc =</span> (p<span class="sc">*</span>n <span class="sc">+</span> <span class="fl">0.5</span>)<span class="sc">/</span>(n <span class="sc">+</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lg_p =</span> <span class="fu">log</span>(p_cc<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>p_cc))) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x =</span> lg_p))<span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"skyblue"</span>)<span class="sc">+</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>()<span class="sc">+</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>See what happened with variance now. An approximation of variance of logit transformed proportions could be -</p>
+<p><span class="math display">\[
+Var(logit(p)) = \frac{1}{np(1-p)}
+\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Calculate variance and plot them</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cc =</span> (p<span class="sc">*</span>n <span class="sc">+</span> <span class="fl">0.5</span>)<span class="sc">/</span>(n <span class="sc">+</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lg_p =</span> <span class="fu">log</span>(p_cc<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>p_cc))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var_lg_p =</span> <span class="dv">1</span><span class="sc">/</span>(n<span class="sc">*</span>p_cc<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_cc))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x =</span> lg_p, <span class="at">y =</span> var_lg_p))<span class="sc">+</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)<span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The plots show a <strong>successful partial stabilization</strong>, but not enough to assume homoscedasticity.</p>
+</section>
+<section id="log-transformation" class="level2">
+<h2 class="anchored" data-anchor-id="log-transformation"><strong>2. Log transformation</strong></h2>
+<p><strong><em>log(p)</em></strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cc =</span> (p<span class="sc">*</span>n <span class="sc">+</span> <span class="fl">0.5</span>)<span class="sc">/</span>(n <span class="sc">+</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_p =</span> <span class="fu">log</span>(p_cc)) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x =</span> log_p))<span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"skyblue"</span>)<span class="sc">+</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong><em>log(p) vs Var(log(p))</em></strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cc =</span> (p<span class="sc">*</span>n <span class="sc">+</span> <span class="fl">0.5</span>)<span class="sc">/</span>(n <span class="sc">+</span> <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">log_p =</span> <span class="fu">log</span>(p_cc)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var_log_p =</span> (<span class="dv">1</span><span class="sc">-</span>p_cc)<span class="sc">/</span>(n<span class="sc">*</span>p_cc)) <span class="sc">%&gt;%</span> <span class="co"># another alternative = (1/y) - (1/n)</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x =</span> log_p, <span class="at">y =</span> var_log_p))<span class="sc">+</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)<span class="sc">+</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="arcsine-transformation" class="level2">
+<h2 class="anchored" data-anchor-id="arcsine-transformation"><strong>3. Arcsine transformation</strong></h2>
+<p><strong><em>arcsine(p)</em></strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">as_p =</span> <span class="fu">asin</span>(<span class="fu">sqrt</span>(p))) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x =</span> as_p))<span class="sc">+</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"skyblue"</span>)<span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong><em>arcsine(p) vs var (arcsine(p))</em></strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span>  </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">as_p =</span> <span class="fu">asin</span>(<span class="fu">sqrt</span>(p))) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var_as_p =</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">4</span><span class="sc">*</span>n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x =</span> as_p, <span class="at">y =</span> var_as_p))<span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)<span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="freemantukey-double-arcsine-transformation" class="level2">
+<h2 class="anchored" data-anchor-id="freemantukey-double-arcsine-transformation"><strong>4. Freeman–Tukey double arcsine transformation</strong></h2>
+<p><strong><em>doublearcsine(p)</em></strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span>  </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">das_p =</span> <span class="fu">asin</span>(<span class="fu">sqrt</span>(y<span class="sc">/</span>(n<span class="sc">+</span><span class="dv">1</span>))) <span class="sc">+</span> <span class="fu">asin</span>(<span class="fu">sqrt</span>((y<span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span>(n<span class="sc">+</span><span class="dv">1</span>)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x =</span> das_p))<span class="sc">+</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">color =</span> <span class="st">"red"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">fill =</span> <span class="st">"skyblue"</span>)<span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong><em>doublearcsine(p) vs var(doublearcsine(p))</em></strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span>  </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">das_p =</span> <span class="fu">asin</span>(<span class="fu">sqrt</span>(y<span class="sc">/</span>(n<span class="sc">+</span><span class="dv">1</span>))) <span class="sc">+</span> <span class="fu">asin</span>(<span class="fu">sqrt</span>((y<span class="sc">+</span><span class="dv">1</span>)<span class="sc">/</span>(n<span class="sc">+</span><span class="dv">1</span>)))) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var_das_p =</span> <span class="dv">1</span><span class="sc">/</span>(n <span class="sc">+</span> <span class="fl">0.5</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(.,<span class="fu">aes</span>(<span class="at">x =</span> das_p, <span class="at">y =</span> var_das_p))<span class="sc">+</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">formula =</span> y <span class="sc">~</span> x)<span class="sc">+</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>So far, we have observed that the logit transformation performs better in improving normality and reducing variance instability. Now, we can go for conducting meta-analysis.</strong></p>
+</section>
+</section>
+<section id="conducting-meta-analysis" class="level1">
+<h1><strong>Conducting meta-analysis</strong></h1>
+<section id="choosing-the-model" class="level2">
+<h2 class="anchored" data-anchor-id="choosing-the-model"><strong>1. Choosing the model</strong></h2>
+<p>The two main parametric models used to combine results from multiple studies are the fixed-effect (FE) and random-effects model (RE).</p>
+<p>The FE model assumes that the true proportion is identical across studies included in meta-analysis, and any observed variation in proportion estimates is only due to random sampling error within each study, known as within-study variance.</p>
+<p>In contrast, the RE model assumes the true proportions are not the same across studies but follow a normal distribution.</p>
+<p>In other words, the RE model accounts for both within-study and between-study variances, while the FE model assumes that the between-study variance is zero (i.e., between-study heterogeneity does not exist) <span class="citation" data-cites="hackenberger2020bayesian wang2023conducting">[<a href="#ref-hackenberger2020bayesian" role="doc-biblioref">2</a>,<a href="#ref-wang2023conducting" role="doc-biblioref">4</a>]</span>. Hackenberger (2020) suggested the use of an FE model if there is no statistical or methodological heterogeneity and if it is not necessary to generalize the conclusions. If a generalized conclusion is the objective and data are available from more than five different studies, a RE model would be appropriate <span class="citation" data-cites="hackenberger2020bayesian munn2015methodological">[<a href="#ref-hackenberger2020bayesian" role="doc-biblioref">2</a>,<a href="#ref-munn2015methodological" role="doc-biblioref">5</a>]</span>.</p>
+<p>The random-effects model can be estimated by several methods such as -</p>
+<ul>
+<li>the method of moments or the DerSimonian and Laird method (DL) and</li>
+<li>the restricted maximum likelihood method (REML)</li>
+</ul>
+<p>In all cases, the summary effect size (i.e., the summary proportion) is estimated as the weighted average of the observed effect sizes extracted from primary studies. The weighting for each observed effect size is the inverse of the total variance of a study, which is the sum of the within-study variance and the between-study variance. These two methods differ mainly in the estimation of the between-study variance, commonly denoted as <em>τ<sup>2</sup></em> in the meta-analytic literature <span class="citation" data-cites="wang2023conducting">[<a href="#ref-wang2023conducting" role="doc-biblioref">4</a>]</span>.</p>
+</section>
+<section id="estimating-summary-estimates" class="level2">
+<h2 class="anchored" data-anchor-id="estimating-summary-estimates"><strong>2. Estimating summary estimates</strong></h2>
+<p>The data from multiple studies can be combined following two approaches: (i) classical inverse variance meta-analysis (also known as the two-step method) and (ii) meta-analysis based on generalized linear mixed model (GLMM) <span class="citation" data-cites="lin2020meta schwarzer2021meta">[<a href="#ref-lin2020meta" role="doc-biblioref">6</a>,<a href="#ref-schwarzer2021meta" role="doc-biblioref">7</a>]</span>.</p>
+<p><strong>Note:</strong> In practice, meta-analyses of proportion studies rarely include a very large number of studies (e.g., 1000 studies). For easier visualization and demonstration of the modeling process, we will use the first 20 studies in our examples.</p>
+<section id="a.-classical-inverse-variance-meta-analysis-two-step-method" class="level3">
+<h3 class="anchored" data-anchor-id="a.-classical-inverse-variance-meta-analysis-two-step-method"><strong>A. Classical inverse variance meta-analysis (two-step method)</strong></h3>
+<p>This method requires the estimation of the study-specific proportion (or transformed proportion) and its variance (or standard error) in the first step, followed by a second step where the results from multiple studies are combined to get the pooled proportion estimate.</p>
+<section id="i-a-naive-way-to-apply-this-method-will-be-using-metagen-function-from-meta-package-only-for-logit-transformed-proportions" class="level4">
+<h4 class="anchored" data-anchor-id="i-a-naive-way-to-apply-this-method-will-be-using-metagen-function-from-meta-package-only-for-logit-transformed-proportions"><strong><em>i) A naive way to apply this method will be using <code>metagen()</code> function from <code>meta</code> package: Only for logit transformed proportions</em></strong></h4>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Transform the proportion (Step-1)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">p_cc =</span> (y <span class="sc">+</span> <span class="fl">0.5</span>)<span class="sc">/</span>(n <span class="sc">+</span> <span class="dv">1</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">lg_p =</span> <span class="fu">log</span>(p_cc<span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>p_cc)),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">var_lg_p =</span> <span class="dv">1</span><span class="sc">/</span>(n<span class="sc">*</span>p_cc)<span class="sc">+</span><span class="dv">1</span><span class="sc">/</span>(n<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_cc)),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">se_lg_p =</span> <span class="fu">sqrt</span>(var_lg_p))</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="do">## Pool transformed proportions (Step-2)</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>model1 <span class="ot">&lt;-</span> <span class="fu">metagen</span>(</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>   <span class="at">TE =</span> lg_p,</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>   <span class="at">seTE =</span> se_lg_p,</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>   <span class="at">studlab =</span> Study,</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>   <span class="at">data =</span> data1</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a> )</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                             95%-CI %W(common) %W(random)
+Study_1  -2.8616 [-3.2869; -2.4362]        1.4        5.0
+Study_2  -0.1425 [-0.3251;  0.0402]        7.9        5.1
+Study_3  -2.0516 [-2.5128; -1.5905]        1.2        5.0
+Study_4   0.0835 [-0.0875;  0.2546]        8.9        5.1
+Study_5   0.8303 [ 0.5251;  1.1356]        2.8        5.0
+Study_6   1.2051 [ 1.0532;  1.3571]       11.3        5.1
+Study_7  -1.0615 [-1.2183; -0.9047]       10.6        5.1
+Study_8   0.3049 [-0.0602;  0.6699]        2.0        5.0
+Study_9   0.3023 [ 0.0730;  0.5316]        5.0        5.0
+Study_10  2.2216 [ 1.7856;  2.6576]        1.4        5.0
+Study_11  2.7661 [ 2.2344;  3.2978]        0.9        4.9
+Study_12  0.0000 [-1.0476;  1.0476]        0.2        4.6
+Study_13 -2.3892 [-2.7546; -2.0238]        2.0        5.0
+Study_14 -2.5666 [-2.8619; -2.2712]        3.0        5.0
+Study_15 -2.8020 [-3.1460; -2.4581]        2.2        5.0
+Study_16  2.7151 [ 2.3844;  3.0459]        2.4        5.0
+Study_17  0.1564 [ 0.0145;  0.2982]       13.0        5.1
+Study_18 -1.3047 [-1.4843; -1.1250]        8.1        5.1
+Study_19 -1.5208 [-2.0563; -0.9852]        0.9        4.9
+Study_20 -0.6533 [-0.7871; -0.5195]       14.6        5.1
+
+Number of studies: k = 20
+
+                                         95%-CI      z  p-value
+Common effect model  -0.2620 [-0.3132; -0.2108] -10.04 &lt; 0.0001
+Random effects model -0.3400 [-1.1064;  0.4265]  -0.87   0.3846
+
+Quantifying heterogeneity (with 95%-CIs):
+ tau^2 = 3.0181 [1.7289; 6.4883]; tau = 1.7373 [1.3149; 2.5472]
+ I^2 = 99.1% [98.9%; 99.2%]; H = 10.54 [9.74; 11.40]
+
+Test of heterogeneity:
+       Q d.f. p-value
+ 2109.61   19       0
+
+Details of meta-analysis methods:
+- Inverse variance method
+- Restricted maximum-likelihood estimator for tau^2
+- Q-Profile method for confidence interval of tau^2 and tau
+- Calculation of I^2 based on Q</code></pre>
+</div>
+</div>
+<p>We need back transformation</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>inv_logit <span class="ot">&lt;-</span> <span class="cf">function</span>(x) <span class="fu">exp</span>(x) <span class="sc">/</span> (<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(x))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>pooled_logit <span class="ot">&lt;-</span> model1<span class="sc">$</span>TE.random</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>se_logit <span class="ot">&lt;-</span> model1<span class="sc">$</span>seTE.random</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>ci_logit <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  pooled_logit <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_logit,</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  pooled_logit <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_logit</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>pooled_proportion <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">inv_logit</span>(pooled_logit)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>ci_proportion <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">inv_logit</span>(ci_logit)<span class="sc">*</span><span class="dv">100</span>,<span class="dv">2</span>)</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="fu">paste0</span>(pooled_proportion,<span class="st">"%"</span>, <span class="st">" (95%CI: "</span>,ci_proportion[<span class="dv">1</span>],<span class="st">"%"</span>,<span class="st">" - "</span>,ci_proportion[<span class="dv">2</span>],<span class="st">"%"</span>, <span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "41.58% (95%CI: 24.85% - 60.5%)"</code></pre>
+</div>
+</div>
+<p><strong>However, a comprehensive details of this method has been described by <span class="citation" data-cites="wang2023conducting">[<a href="#ref-wang2023conducting" role="doc-biblioref">4</a>]</span>. Now, we will follow that method</strong></p>
+</section>
+<section id="ii-calculate-effect-size-and-variance-for-each-study-using-different-transformations" class="level4">
+<h4 class="anchored" data-anchor-id="ii-calculate-effect-size-and-variance-for-each-study-using-different-transformations"><strong><em>ii) Calculate effect size and variance for each study using different transformations</em></strong></h4>
+<p>Here, “ies” (short for individual effect size)</p>
+<p><strong>A) Without transformation of proportions</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>data1 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">20</span>)  </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a table with effect sizes and SEs</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>ies <span class="ot">&lt;-</span> <span class="fu">escalc</span>(<span class="at">xi =</span> y, </span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">ni =</span> n,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data1,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">measure=</span><span class="st">"PR"</span>) <span class="co"># measure (=computational method) "PR" used for no transformation</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Pool the derived effect sizes</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>pes <span class="ot">&lt;-</span> <span class="fu">rma</span>(yi, <span class="co">#“pes”, which stands for pooled effect size.</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>           vi, </span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> ies, </span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (pes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Random-Effects Model (k = 20; tau^2 estimator: REML)
+
+tau^2 (estimated amount of total heterogeneity): 0.0943 (SE = 0.0310)
+tau (square root of estimated tau^2 value):      0.3071
+I^2 (total heterogeneity / total variability):   99.73%
+H^2 (total variability / sampling variability):  376.25
+
+Test for Heterogeneity:
+Q(df = 19) = 10327.6360, p-val &lt; .0001
+
+Model Results:
+
+estimate      se    zval    pval   ci.lb   ci.ub      
+  0.4389  0.0691  6.3497  &lt;.0001  0.3034  0.5744  *** 
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+</div>
+<p><strong>B) With <em>logit</em> transformation of proportions</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a table with effect sizes and SEs</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ies.logit <span class="ot">&lt;-</span> <span class="fu">escalc</span>(<span class="at">xi =</span> y, </span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">ni =</span> n,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data1,</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">measure=</span><span class="st">"PLO"</span>) <span class="co"># measure (=computational method) "PLO" used for logit transformation</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Pool the derived effect sizes</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>pes.logit <span class="ot">&lt;-</span> <span class="fu">rma</span>(yi, <span class="co">#“pes”, which stands for pooled effect size.</span></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>           vi,</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> ies.logit)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverse of logit transformation</span></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>pes_predict <span class="ot">&lt;-</span> <span class="fu">predict</span> (pes.logit, <span class="at">transf =</span> transf.ilogit)</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (pes_predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   pred  ci.lb  ci.ub  pi.lb  pi.ub 
+ 0.4154 0.2472 0.6059 0.0207 0.9598 </code></pre>
+</div>
+</div>
+<p><strong>C) With <em>double arcsine</em> transformation of proportions</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a table with effect sizes and SEs</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>ies.da <span class="ot">&lt;-</span> <span class="fu">escalc</span>(<span class="at">xi =</span> y, <span class="co">#da for double arcsine</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">ni =</span> n,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data1,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">measure=</span><span class="st">"PFT"</span>) <span class="co"># measure (=computational method) "PFT" used for double arcsine transformation transformation</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Pool the derived effect sizes</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>pes.da <span class="ot">&lt;-</span> <span class="fu">rma</span>(yi, <span class="co">#“pes”, which stands for pooled effect size.</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>           vi,</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> ies.da)</span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverse of double arcsine transformation</span></span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>pes_predict <span class="ot">&lt;-</span> <span class="fu">predict</span> (pes.da, <span class="at">transf =</span> transf.ipft.hm, <span class="at">targ =</span> <span class="fu">list</span>(<span class="at">ni =</span> data1<span class="sc">$</span>n))</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a><span class="co">#Alternatively we can do back transformation as foloows:</span></span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co"># (I just don't want to use this way at this moment,That is why i am putting the "#" before code) </span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a><span class="co">#pes_predict &lt;- predict (pes.da , transf = transf.ipft.hm, targ = list (ni =1/( pes.da$se )^2) )</span></span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (pes_predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   pred  ci.lb  ci.ub  pi.lb  pi.ub 
+ 0.4290 0.2778 0.5872 0.0000 0.9844 </code></pre>
+</div>
+</div>
+<p>Here, we will use the logit transformation. As I mentioned earlier, we can estimate RE model using different estimator. Now, we will do that</p>
+</section>
+<section id="iii-re-model-estimation-with-different-estimators-only-logit-transformed-data" class="level4">
+<h4 class="anchored" data-anchor-id="iii-re-model-estimation-with-different-estimators-only-logit-transformed-data"><strong><em>iii) RE model estimation with different estimators (only logit transformed data)</em></strong></h4>
+<p><strong>A) DL: Most popular method</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>ies.logit <span class="ot">&lt;-</span> <span class="fu">escalc</span>(<span class="at">xi =</span> y, </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">ni =</span> n,</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">data =</span> data1,</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">measure=</span><span class="st">"PLO"</span>) </span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>       </span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Pool the derived effect sizes</span></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>pes.logit_dl <span class="ot">&lt;-</span> <span class="fu">rma</span>(yi, </span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>           vi,</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> ies.logit,</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"DL"</span>,</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>           <span class="at">level =</span> <span class="dv">95</span>)</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverse of logit transformation</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>pes_predict_dl <span class="ot">&lt;-</span> <span class="fu">predict</span> (pes.logit_dl, <span class="at">transf =</span> transf.ilogit)</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (pes_predict_dl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   pred  ci.lb  ci.ub  pi.lb  pi.ub 
+ 0.4151 0.2892 0.5531 0.0541 0.8981 </code></pre>
+</div>
+</div>
+<p><strong>This is our chosen model</strong></p>
+<p><strong>B) REML</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pool the derived effect sizes</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>pes.logit_reml <span class="ot">&lt;-</span> <span class="fu">rma</span>(yi, <span class="co">#“pes”, which stands for pooled effect size.</span></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>           vi,</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> ies.logit,</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"REML"</span>)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverse of logit transformation</span></span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>pes_predict <span class="ot">&lt;-</span> <span class="fu">predict</span> (pes.logit_reml, <span class="at">transf =</span> transf.ilogit)</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (pes_predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   pred  ci.lb  ci.ub  pi.lb  pi.ub 
+ 0.4154 0.2472 0.6059 0.0207 0.9598 </code></pre>
+</div>
+</div>
+<p><strong>C) ML</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Pool the derived effect sizes</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>pes.logit_ml <span class="ot">&lt;-</span> <span class="fu">rma</span>(yi, <span class="co">#“pes”, which stands for pooled effect size.</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>           vi,</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> ies.logit,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">method =</span> <span class="st">"ML"</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Inverse of logit transformation</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>pes_predict <span class="ot">&lt;-</span> <span class="fu">predict</span> (pes.logit_ml, <span class="at">transf =</span> transf.ilogit)</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (pes_predict)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   pred  ci.lb  ci.ub  pi.lb  pi.ub 
+ 0.4154 0.2509 0.6012 0.0226 0.9562 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="b.-meta-analysis-based-on-generalized-linear-mixed-model-glmm" class="level3">
+<h3 class="anchored" data-anchor-id="b.-meta-analysis-based-on-generalized-linear-mixed-model-glmm"><strong>B. Meta-analysis based on generalized linear mixed model (GLMM)</strong></h3>
+<p>As an alternative to the classical inverse variance method, GLMM can be used to conduct meta-analysis of proportions. The major advantage of this method is that it does not require any data transformation or manual variance calculation at the study level. GLMMs can directly model the even counts (cases) with a binomial likelihood.</p>
+<p>For \(K\) independent studies, if <span class="math inline">\(y_i\)</span> , <span class="math inline">\(n_i\)</span> , <span class="math inline">\(p_i\)</span> , and <span class="math inline">\(\varepsilon_i\)</span> represent the number of case (or event), sample size, true proportion and random-effects for study <em>i</em>, GLMM can be specified as follows:</p>
+<p><strong>Likelihood</strong>:</p>
+<p><span class="math display">\[
+y_i \sim \text{Binomial}(n_i,p_i)
+\]</span></p>
+<p><strong>Link function</strong>:</p>
+<p><span class="math display">\[
+\text{logit}(p_i) = \mu + \varepsilon_i
+\]</span></p>
+<p><strong>Random effects:</strong></p>
+<p><span class="math display">\[
+\varepsilon_i \sim \text{Normal}(0,\tau^2)
+\]</span></p>
+<p>Here, <em>P</em> is the overall proportion on the transformed scale, and <em>τ<sup>2</sup></em> is the between-study variance. Various links (i.e., transformation) are widely used in GLMMs, including the identity, log, logit, probit, cauchy, etc. The synthesized pooled estimate is required to be back-transformed into the original proportion scale if a link function other than identity is used.</p>
+<p><strong>=============<em>We will discuss GLMM method in another tutorial =======</em></strong></p>
+</section>
+</section>
+<section id="presentation-of-results-forest-plot" class="level2">
+<h2 class="anchored" data-anchor-id="presentation-of-results-forest-plot"><strong>3. Presentation of results (forest plot)</strong></h2>
+<p><strong>Forest plot for our naive way</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(model1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Forest plot for the meta-analysis of raw proportion</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.width: 10</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.height: 8</span></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(pes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Forest plot for the meta-analysis of raw proportion logit transformed proportions</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.width: 10</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig.height: 8</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(pes.logit_dl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The forest plot does not look good to me. To make a pretty forest plot I will rerun the meta-analysis using <em><code>metaprop()</code></em> function.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>pes.logit_2 <span class="ot">&lt;-</span> <span class="fu">metaprop</span>(y,</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>                         n,</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>                         Study,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">data =</span> data1,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">sm =</span> <span class="st">"PLO"</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">method =</span> <span class="st">"Inverse"</span>,</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">method.tau =</span> <span class="st">"DL"</span>,</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">method.ci =</span> <span class="st">"NAsm"</span>)</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pes.logit_2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>         proportion           95%-CI %W(common) %W(random)
+Study_1      0.0530 [0.0352; 0.0792]        1.4        5.0
+Study_2      0.4644 [0.4194; 0.5100]        7.9        5.1
+Study_3      0.1117 [0.0732; 0.1668]        1.2        4.9
+Study_4      0.5209 [0.4782; 0.5633]        9.0        5.1
+Study_5      0.6974 [0.6294; 0.7578]        2.8        5.0
+Study_6      0.7697 [0.7417; 0.7956]       11.4        5.1
+Study_7      0.2567 [0.2279; 0.2878]       10.7        5.1
+Study_8      0.5763 [0.4856; 0.6621]        2.0        5.0
+Study_9      0.5753 [0.5185; 0.6301]        5.0        5.1
+Study_10     0.9039 [0.8584; 0.9359]        1.4        5.0
+Study_11     0.9426 [0.9055; 0.9657]        0.9        4.9
+Study_12     0.5000 [0.2597; 0.7403]        0.2        4.3
+Study_13     0.0829 [0.0589; 0.1155]        1.9        5.0
+Study_14     0.0707 [0.0535; 0.0928]        3.0        5.1
+Study_15     0.0565 [0.0406; 0.0780]        2.2        5.0
+Study_16     0.9386 [0.9165; 0.9552]        2.4        5.0
+Study_17     0.5391 [0.5037; 0.5741]       13.0        5.1
+Study_18     0.2130 [0.1844; 0.2447]        8.1        5.1
+Study_19     0.1758 [0.1106; 0.2679]        0.9        4.9
+Study_20     0.3421 [0.3126; 0.3728]       14.7        5.1
+
+Number of studies: k = 20
+Number of observations: o = 9203
+Number of events: e = 3868
+
+                     proportion           95%-CI
+Common effect model      0.4349 [0.4223; 0.4475]
+Random effects model     0.4151 [0.2892; 0.5531]
+
+Quantifying heterogeneity (with 95%-CIs):
+ tau^2 = 1.5710 [1.2271; 5.2015]; tau = 1.2534 [1.1078; 2.2807]
+ I^2 = 99.1% [98.9%; 99.2%]; H = 10.54 [9.74; 11.40]
+
+Test of heterogeneity:
+       Q d.f. p-value
+ 2110.18   19       0
+
+Details of meta-analysis methods:
+- Inverse variance method
+- DerSimonian-Laird estimator for tau^2
+- Jackson method for confidence interval of tau^2 and tau
+- Calculation of I^2 based on Q
+- Logit transformation
+- Normal approximation confidence interval for individual studies</code></pre>
+</div>
+</div>
+<p><strong>Final plot</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span>(pes.logit_2,</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">common =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">print.tau2 =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">print.Q =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">print.pval.Q =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">print.I2 =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">leftcols =</span> <span class="fu">c</span>(<span class="st">"studlab"</span>, <span class="st">"event"</span>, <span class="st">"n"</span>),</span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">leftlabs =</span> <span class="fu">c</span>(<span class="st">"Study"</span>, <span class="st">"Cases"</span>, <span class="st">"Total"</span>),</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">"Prevalence"</span>,</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">digits =</span> <span class="dv">2</span>,</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">col.square =</span> <span class="st">"navy"</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">col.square.lines =</span> <span class="st">"navy"</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">col.diamond =</span> <span class="st">"maroon"</span>,</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">col.diamond.lines =</span> <span class="st">"maroon"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-29-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="estimation-of-the-heterogeneity" class="level2">
+<h2 class="anchored" data-anchor-id="estimation-of-the-heterogeneity"><strong>4. Estimation of the heterogeneity</strong></h2>
+<p>There are three quantifying statistics for heterogeneity.</p>
+<p><em>1) The between-study variance (tau^2)</em>: Also known as tau-squared statistic.It reflects the total amount of systematic difference in effects across studies.Sensitive to sample size of the studies included</p>
+<p><em>2) Test of heterogeneity: Cochran’s Q</em> : The statistical power of the Q-test heavily relies on the number of studies included in a meta-analysis, and as a result, it may fail to detect heterogeneity due to limited power when the number of included studies is small (less than 10) or when the included studies are of small size. It only assesses the viability of the null hypothesis and does not provide a quantification of the magnitude of the true heterogeneity in effect sizes</p>
+<p><em>3) I^2 statistic</em>: unaffected by the number of included studies.I2 can take values from 0% to 100%. A value of 0% indicates that all heterogeneity is caused by sampling error alone, requiring no further explanation. I2 Conversely, when equals 100%, the entire heterogeneity can be attributed ex clusively to genuine differences between studies, thus justifying the application of subgroup analyses or meta-regressions to identify potential moderating factors.As a thumb rule, 25%, 50%, and 75% are commonly used to indicate low, medium, and high heterogeneity, respectively.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pes.logit_dl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Random-Effects Model (k = 20; tau^2 estimator: DL)
+
+tau^2 (estimated amount of total heterogeneity): 1.5710 (SE = 0.6875)
+tau (square root of estimated tau^2 value):      1.2534
+I^2 (total heterogeneity / total variability):   99.10%
+H^2 (total variability / sampling variability):  111.06
+
+Test for Heterogeneity:
+Q(df = 19) = 2110.1804, p-val &lt; .0001
+
+Model Results:
+
+estimate      se     zval    pval    ci.lb   ci.ub    
+ -0.3429  0.2838  -1.2085  0.2269  -0.8991  0.2132    
+
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">confint</span>(pes.logit_dl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+       estimate    ci.lb    ci.ub 
+tau^2    1.5710   1.7531   6.5800 
+tau      1.2534   1.3240   2.5652 
+I^2(%)  99.0996  99.1924  99.7835 
+H^2    111.0621 123.8178 461.9808 </code></pre>
+</div>
+</div>
+</section>
+<section id="exploration-of-sources-of-heterogeneity" class="level2">
+<h2 class="anchored" data-anchor-id="exploration-of-sources-of-heterogeneity"><strong>5. Exploration of sources of heterogeneity</strong></h2>
+<p>This included subgroup analysis and meta-regression; however, these methods will not be demonstrated in this example.</p>
+</section>
+<section id="identifying-the-influential-studies" class="level2">
+<h2 class="anchored" data-anchor-id="identifying-the-influential-studies"><strong>6. Identifying the influential studies</strong></h2>
+<section id="a.-identifying-outlying-and-influential-studies-with-diagnostic-tools-baujat-plot" class="level3">
+<h3 class="anchored" data-anchor-id="a.-identifying-outlying-and-influential-studies-with-diagnostic-tools-baujat-plot"><strong>A. Identifying outlying and influential studies with diagnostic tools (Baujat plot)</strong></h3>
+<p><strong>General description</strong></p>
+<p><img src="baujat_plot.png" class="img-fluid" width="361"></p>
+<p>The Baujat plot helps distinguish between outliers that are influential and those that are not <span class="citation" data-cites="wang2023conducting">[<a href="#ref-wang2023conducting" role="doc-biblioref">4</a>]</span>:</p>
+<ul>
+<li>Small studies with effect sizes similar to others typically fall into the lower left corner of Quadrant 4, indicating they are neither outliers nor influential. <strong>Q4: not-influential-not-outlier</strong></li>
+<li>Small studies with notably different effect sizes than others often appear in the lower right corner of Quadrant 3. They may be outliers, but their small sample sizes prevent them from heavily impacting the overall effect size. <strong>Q3: not-influential-outlier</strong></li>
+<li>Large studies with dramatically different effect sizes than the rest tend to appear in the upper right corner of Quadrant 2. These studies are influential outliers, exerting the most substantial impact on both the overall effect and heterogeneity. <strong>Q2: influential-outlier</strong></li>
+<li>Large studies with effect sizes similar to the majority of effect sizes tend to populate the upper left corner of Quadrant 1. While these studies have influential effects, they may not be outliers. Their influence on the pooled effect size is pronounced because of their extensive sample sizes. <strong>Q1: nfluential-not-outlier</strong></li>
+</ul>
+<p><strong>Baujat plot for our data</strong></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>bjplot <span class="ot">&lt;-</span><span class="fu">baujat</span>(pes.logit_dl,</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">symbol =</span> <span class="dv">19</span>,</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">8</span>),</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">xlab =</span> <span class="st">"Contribution to Overall Heterogeneity"</span>,</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">ylab =</span> <span class="st">" Influence on Summary Proportion "</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>bjplot <span class="ot">&lt;-</span> bjplot[bjplot<span class="sc">$</span>x <span class="sc">&gt;=</span> <span class="dv">4</span> <span class="sc">|</span> bjplot<span class="sc">$</span>y <span class="sc">&gt;=</span> <span class="fl">0.2</span>,] </span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a><span class="fu">text</span>(bjplot<span class="sc">$</span>x , bjplot<span class="sc">$</span>y , bjplot<span class="sc">$</span>slab , <span class="at">pos=</span><span class="dv">1</span>) </span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">4</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fl">0.2</span>, <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"blue"</span>, <span class="at">lwd =</span> <span class="fl">1.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Looks like Study 1,10,11, 15 and 16 could be influential studies.</p>
+<ul>
+<li>15 and 1 may be influential-not-outlier</li>
+<li>10, 11 and 16 may be influential-outlier</li>
+</ul>
+<p>Let’s see if, our suspicion stands in case of other tests.</p>
+</section>
+<section id="b.-identifying-influential-study-by-externally-studentized-residuals-esr" class="level3">
+<h3 class="anchored" data-anchor-id="b.-identifying-influential-study-by-externally-studentized-residuals-esr"><strong>B. Identifying influential study by Externally studentized residuals (ESR)</strong></h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate ESR</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>stud.res <span class="ot">&lt;-</span> <span class="fu">rstudent</span>(pes.logit_dl) </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Sort ESR by z- values in descending order</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>abs.z <span class="ot">&lt;-</span> <span class="fu">abs</span>( stud.res<span class="sc">$</span>z )</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>stud.res[<span class="fu">order</span>(<span class="sc">-</span>abs.z)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+     resid     se       z 
+16  3.2338 1.2142  2.6635 
+11  3.3034 1.2847  2.5714 
+10  2.7198 1.2776  2.1287 
+1  -2.6726 1.2713 -2.1023 
+15 -2.6035 1.2482 -2.0859 
+14 -2.3521 1.2416 -1.8944 
+13 -2.1695 1.2739 -1.7030 
+3  -1.8203 1.2999 -1.4003 
+6   1.6334 1.2359  1.3216 
+19 -1.2638 1.3163 -0.9601 
+5   1.2406 1.3021  0.9528 
+18 -1.0160 1.3062 -0.7778 
+7  -0.7590 1.3335 -0.5692 
+8   0.6847 1.3126  0.5216 
+9   0.6807 1.3229  0.5145 
+17  0.5260 1.3743  0.3827 
+4   0.4493 1.3529  0.3321 
+12  0.3585 1.3951  0.2570 
+20 -0.3282 1.3851 -0.2369 
+2   0.2107 1.3501  0.1560 </code></pre>
+</div>
+</div>
+<p>We see, for studies 1,10,11, 15 and 16, z-values that exceed an absolute value of 2.</p>
+</section>
+<section id="c.-identifying-influential-study-by-leave-one-out-diagnostic-tests" class="level3">
+<h3 class="anchored" data-anchor-id="c.-identifying-influential-study-by-leave-one-out-diagnostic-tests"><strong>C. Identifying influential study by leave-one-out diagnostic tests</strong></h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>L1O <span class="ot">&lt;-</span> <span class="fu">leave1out</span> (pes.logit_dl, <span class="at">transf =</span> transf.ilogit )</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (L1O, <span class="at">digits =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    estimate      zval     pval    ci.lb    ci.ub           Q       Qp     tau2 
+-1  0.447646 -0.741484 0.458400 0.317394 0.585502 1965.015315 0.000000 1.487802 
+-2  0.412548 -1.160456 0.245863 0.278806 0.560578 2108.404986 0.000000 1.721234 
+-3  0.437108 -0.874711 0.381731 0.305850 0.577808 2051.185669 0.000000 1.549776 
+-4  0.409607 -1.197508 0.231108 0.276088 0.557932 2092.949632 0.000000 1.729503 
+-5  0.399985 -1.386263 0.165667 0.273113 0.541859 2059.220800 0.000000 1.585646 
+-6  0.394917 -1.526533 0.126877 0.273978 0.530251 1705.561617 0.000000 1.443339 
+-7  0.424561 -1.009937 0.312526 0.290244 0.571027 1998.048124 0.000000 1.681049 
+-8  0.406797 -1.283359 0.199366 0.278217 0.549556 2100.649141 0.000000 1.601786 
+-9  0.406758 -1.265926 0.205540 0.276544 0.551541 2085.609219 0.000000 1.647587 
+-10 0.382706 -1.679337 0.093086 0.261914 0.519962 1983.809822 0.000000 1.501007 
+-11 0.376508 -1.776559 0.075641 0.257144 0.513015 1985.406226 0.000000 1.494065 
+-12 0.411328 -1.233621 0.217344 0.283325 0.552572 2109.939647 0.000000 1.576104 
+-13 0.441700 -0.821259 0.411499 0.311451 0.580497 1977.180037 0.000000 1.506357 
+-14 0.444179 -0.803103 0.421915 0.316170 0.580052 1869.027672 0.000000 1.440832 
+-15 0.447138 -0.758359 0.448236 0.318480 0.583289 1896.271423 0.000000 1.448422 
+-16 0.376092 -1.857491 0.063241 0.261099 0.506981 1792.220515 0.000000 1.371118 
+-17 0.408675 -1.190795 0.233734 0.273383 0.559377 2071.738912 0.000000 1.787311 
+-18 0.427735 -0.987196 0.323547 0.295454 0.571223 1968.901855 0.000000 1.610882 
+-19 0.430175 -0.965855 0.334117 0.299090 0.571840 2088.278730 0.000000 1.572175 
+-20 0.419244 -1.042192 0.297323 0.281156 0.571255 2071.545552 0.000000 1.816087 
+           I2         H2 
+-1  99.083977 109.167518 
+-2  99.146274 117.133610 
+-3  99.122459 113.954759 
+-4  99.139970 116.274980 
+-5  99.125883 114.401156 
+-6  98.944629  94.753423 
+-7  99.099121 111.002674 
+-8  99.143122 116.702730 
+-9  99.136943 115.867179 
+-10 99.092655 110.211657 
+-11 99.093385 110.300346 
+-12 99.146895 117.218869 
+-13 99.089612 109.843335 
+-14 99.036932 103.834871 
+-15 99.050769 105.348412 
+-16 98.995659  99.567806 
+-17 99.131165 115.096606 
+-18 99.085785 109.383436 
+-19 99.138046 116.015485 
+-20 99.131084 115.085864 </code></pre>
+</div>
+</div>
+<p>Surprisingly, removal of any study did not change the estimate significantly (for example, &gt; 10%). But close to 10% change happened for removing Study 16. Now, vizualize the results</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>l1o<span class="ot">=</span> <span class="fu">leave1out</span> (pes.logit_dl)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>yi<span class="ot">=</span> l1o<span class="sc">$</span>estimate; vi<span class="ot">=</span> l1o<span class="sc">$</span>se <span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="fu">forest</span> (yi,</span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>        vi,</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">transf =</span> transf.ilogit ,</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">slab =</span> <span class="fu">paste</span> (data1<span class="sc">$</span>Study) ,</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">xlab =</span><span class="st">" Leave -one -out summary proportions "</span>,</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">refline =</span> pes_predict_dl<span class="sc">$</span>pred ,</span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">digits =</span><span class="dv">6</span>)</span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span> (<span class="at">h =</span><span class="fl">0.1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>From forest plot, it seams removal of Study 16 results significant change in pooled estimate.</p>
+<p>For confirmation we can perform leave-one-out diagnostics with the <em><code>influence()</code></em> function</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>inf <span class="ot">&lt;-</span> <span class="fu">influence</span> (pes.logit_dl)</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span> (inf , <span class="at">digits =</span><span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+   rstudent dffits cook.d cov.r tau2.del   QE.del   hat weight   dfbs inf 
+1    -2.102 -0.480  0.219 0.998    1.488 1965.015 0.050  4.974 -0.480     
+2     0.156  0.035  0.001 1.152    1.721 2108.405 0.051  5.097  0.035     
+3    -1.400 -0.319  0.101 1.038    1.550 2051.186 0.049  4.948 -0.319     
+4     0.332  0.076  0.006 1.157    1.730 2092.950 0.051  5.101  0.076     
+5     0.953  0.220  0.049 1.063    1.586 2059.221 0.050  5.048  0.220     
+6     1.322  0.308  0.087 0.970    1.443 1705.562 0.051  5.106  0.308     
+7    -0.569 -0.132  0.019 1.126    1.681 1998.048 0.051  5.105 -0.132     
+8     0.522  0.120  0.015 1.073    1.602 2100.649 0.050  5.015  0.120     
+9     0.515  0.119  0.015 1.104    1.648 2085.609 0.051  5.081  0.119     
+10    2.129  0.487  0.227 1.006    1.501 1983.810 0.050  4.967  0.487     
+11    2.571  0.583  0.324 1.001    1.494 1985.406 0.049  4.890  0.583     
+12    0.257  0.055  0.003 1.049    1.576 2109.940 0.043  4.337  0.055     
+13   -1.703 -0.391  0.147 1.010    1.506 1977.180 0.050  5.013 -0.391     
+14   -1.894 -0.437  0.175 0.968    1.441 1869.028 0.051  5.052 -0.436     
+15   -2.086 -0.479  0.212 0.973    1.448 1896.271 0.050  5.026 -0.479     
+16    2.663  0.615  0.331 0.922    1.371 1792.221 0.050  5.033  0.615     
+17    0.383  0.088  0.009 1.195    1.787 2071.739 0.051  5.109  0.088     
+18   -0.778 -0.180  0.033 1.080    1.611 1968.902 0.051  5.098 -0.180     
+19   -0.960 -0.218  0.047 1.052    1.572 2088.279 0.049  4.890 -0.218     
+20   -0.237 -0.056  0.004 1.214    1.816 2071.546 0.051  5.110 -0.056     </code></pre>
+</div>
+</div>
+<p>No study was marked with asterisk (*). Now, we can check different plot</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span> (inf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-36-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>No studies had red color</p>
+<p><strong><em>In conclusion, Baujat plots identified several studies with relatively large contributions to heterogeneity and/or pooled effect estimation. However, leave-one-out diagnostics showed that omission of these studies did not materially alter the pooled estimate or heterogeneity statistics, suggesting that no single study exerted undue influence on the overall meta-analysis results.</em></strong></p>
+</section>
+</section>
+<section id="searching-for-publication-bias-optional" class="level2">
+<h2 class="anchored" data-anchor-id="searching-for-publication-bias-optional"><strong>7. Searching for publication bias (Optional)</strong></h2>
+<p>One of the major threats to the validity of meta-analyses is publication bias <span class="citation" data-cites="wang2023conducting">[<a href="#ref-wang2023conducting" role="doc-biblioref">4</a>]</span>. Current methods (e.g., funnel plot, trim-and-fill method, Egger’s regression model, etc.) for detecting publication bias and its impact assume that large studies or studies with significant results are most likely to be published. While this assumption might be logical for other types of studies (e.g., randomized control trials), it does not fit proportion studies. Most proportion studies are observational, non-comparative, and may be context-specific. They inherently preclude the testing of statistical significance for their findings. <strong>Therefore, the application of existing methods of addressing publication bias is not recommended in meta-analyses of proportion or prevalence studies</strong> <span class="citation" data-cites="borenstein2019common">[<a href="#ref-borenstein2019common" role="doc-biblioref">8</a>]</span>.</p>
+<p>However, some researchers publish funnel plot and other statistics.</p>
+<section id="a.-funnel-plot" class="level3">
+<h3 class="anchored" data-anchor-id="a.-funnel-plot"><strong>A. Funnel plot</strong></h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(pes.logit_dl)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-37-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Caution!!!</strong></p>
+<p>In prevalence/proportion meta-analysis, asymmetry may arise from:</p>
+<ul>
+<li>true heterogeneity,</li>
+<li>varying sample sizes,</li>
+<li>rare events,</li>
+<li>transformation artifacts,</li>
+<li>or methodological differences,</li>
+</ul>
+<p>not necessarily publication bias. So funnel plot asymmetry alone is insufficient evidence.</p>
+</section>
+<section id="b.-eggers-test" class="level3">
+<h3 class="anchored" data-anchor-id="b.-eggers-test"><strong>B. Egger’s test</strong></h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regtest</span>(pes.logit_dl, <span class="at">model =</span> <span class="st">"rma"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Regression Test for Funnel Plot Asymmetry
+
+Model:     mixed-effects meta-regression model
+Predictor: standard error
+
+Test for Funnel Plot Asymmetry: z =  0.1430, p = 0.8863
+Limit Estimate (as sei -&gt; 0):   b = -0.4120 (CI: -1.5146, 0.6907)</code></pre>
+</div>
+</div>
+<p>However, Egger’s test can produce inflated false positives in proportion meta-analysis, especially when:</p>
+<ul>
+<li>prevalence is very low/high,</li>
+<li>heterogeneity is substantial,</li>
+<li>number of studies is small.</li>
+</ul>
+</section>
+<section id="c.-peters-test" class="level3">
+<h3 class="anchored" data-anchor-id="c.-peters-test"><strong>C. Peters’ test</strong></h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">regtest</span>(pes.logit_dl, <span class="at">predictor =</span> <span class="st">"ni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Regression Test for Funnel Plot Asymmetry
+
+Model:     mixed-effects meta-regression model
+Predictor: sample size
+
+Test for Funnel Plot Asymmetry: z = -0.5592, p = 0.5760</code></pre>
+</div>
+</div>
+</section>
+<section id="d.-trim-and-fill" class="level3">
+<h3 class="anchored" data-anchor-id="d.-trim-and-fill"><strong>D. Trim-and-fill</strong></h3>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>taf <span class="ot">&lt;-</span> <span class="fu">trimfill</span>(pes.logit_dl)</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">funnel</span>(taf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="main_files/figure-html/unnamed-chunk-40-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="what-are-the-major-limitations-of-two-step-method" class="level1">
+<h1><strong>What are the major limitations of two step method?</strong></h1>
+<ul>
+<li>This method might not work well when the study sample sizes are small. In those cases, the variance becomes unstable, leading to unreliable weights for the study.</li>
+<li>It may require the transformation of study-level proportions, and each transformation has its own limitations. For example, the log and logit transformations impractically treat within-study variances as fixed, known values and require <em>ad hoc</em> corrections for zero counts. The results from arcsine-based transformations may lack interpretability.</li>
+</ul>
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body" role="list">
+<div id="ref-dohoo2014" class="csl-entry" role="listitem">
+<div class="csl-left-margin">1. </div><div class="csl-right-inline">Dohoo IR, Martin WS, Stryhn H. Chapter 28: Systematic review and meta-analysis. 2nd ed. Veterinary epidemiologic research. 2nd ed. Charlottetown, Canada: VER, Incorporated; 2014. </div>
+</div>
+<div id="ref-hackenberger2020bayesian" class="csl-entry" role="listitem">
+<div class="csl-left-margin">2. </div><div class="csl-right-inline">Hackenberger BK. Bayesian meta-analysis now–let’s do it. Croatian Medical Journal. 2020;61: 564. </div>
+</div>
+<div id="ref-barker2021conducting" class="csl-entry" role="listitem">
+<div class="csl-left-margin">3. </div><div class="csl-right-inline">Barker TH, Migliavaca CB, Stein C, Colpani V, Falavigna M, Aromataris E, et al. Conducting proportional meta-analysis in different types of systematic reviews: A guide for synthesisers of evidence. BMC medical research methodology. 2021;21: 189. </div>
+</div>
+<div id="ref-wang2023conducting" class="csl-entry" role="listitem">
+<div class="csl-left-margin">4. </div><div class="csl-right-inline">Wang N. Conducting meta-analyses of proportions in r. Journal of Behavioral Data Science. 2023;3: 64–126. </div>
+</div>
+<div id="ref-munn2015methodological" class="csl-entry" role="listitem">
+<div class="csl-left-margin">5. </div><div class="csl-right-inline">Munn Z, Moola S, Lisy K, Riitano D, Tufanaru C. Methodological guidance for systematic reviews of observational epidemiological studies reporting prevalence and cumulative incidence data. JBI Evidence Implementation. 2015;13: 147–153. </div>
+</div>
+<div id="ref-lin2020meta" class="csl-entry" role="listitem">
+<div class="csl-left-margin">6. </div><div class="csl-right-inline">Lin L, Chu H. Meta-analysis of proportions using generalized linear mixed models. Epidemiology. 2020;31: 713–717. </div>
+</div>
+<div id="ref-schwarzer2021meta" class="csl-entry" role="listitem">
+<div class="csl-left-margin">7. </div><div class="csl-right-inline">Schwarzer G, Rücker G. Meta-analysis of proportions. Meta-research: Methods and protocols. Springer; 2021. pp. 159–172. </div>
+</div>
+<div id="ref-borenstein2019common" class="csl-entry" role="listitem">
+<div class="csl-left-margin">8. </div><div class="csl-right-inline">Borenstein M. Common mistakes in meta-analysis and how to avoid them. (no Title). 2019. </div>
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
